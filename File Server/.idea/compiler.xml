@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <bytecodeTargetLevel target="17">
+      <module name="File_Server.File_Server-task-build-classes-java.main" target="11" />
+      <module name="File_Server.File_Server-task-build-generated-sources-annotationProcessor-java.main" target="11" />
+      <module name="File_Server.File_Server-task-build-generated-sources-headers-java.main" target="11" />
+      <module name="File_Server.File_Server-task-build-reports-tests.main" target="11" />
+      <module name="File_Server.File_Server-task-build-test-results.main" target="11" />
+      <module name="File_Server.File_Server-task-build-tmp.main" target="11" />
+      <module name="File_Server.File_Server-task.main" target="11" />
+      <module name="File_Server.Topics-Anonymous_classes-And_always_these_rules.main" target="11" />
+      <module name="File_Server.Topics-Anonymous_classes-Single_method.main" target="11" />
+      <module name="File_Server.Topics-Anonymous_classes-String_reverser.main" target="11" />
+      <module name="File_Server.Topics-Anonymous_classes-Theory.main" target="11" />
+      <module name="File_Server.Topics-Anonymous_classes-What_about_context.main" target="11" />
+      <module name="File_Server.Topics-Custom_threads-Statements.main" target="11" />
+      <module name="File_Server.Topics-Custom_threads-Statements_about_starting_threads.main" target="11" />
+      <module name="File_Server.Topics-Custom_threads-String_processor.main" target="11" />
+      <module name="File_Server.Topics-Custom_threads-Theory.main" target="11" />
+      <module name="File_Server.Topics-Custom_threads-Writing_a_thread_for_printing_numbers.main" target="11" />
+      <module name="File_Server.Topics-Executors-Asynchronous_email_sending.main" target="11" />
+      <module name="File_Server.Topics-Executors-Supplying_a_task.main" target="11" />
+      <module name="File_Server.Topics-Executors-The_order_of_lines_in_output.main" target="11" />
+      <module name="File_Server.Topics-Executors-Theory.main" target="11" />
+      <module name="File_Server.Topics-Functional_interfaces-A_lambda_expression_with_seven_arguments.main" target="11" />
+      <module name="File_Server.Topics-Functional_interfaces-Statements.main" target="11" />
+      <module name="File_Server.Topics-Functional_interfaces-Ternary_predicate.main" target="11" />
+      <module name="File_Server.Topics-Functional_interfaces-The_requirement.main" target="11" />
+      <module name="File_Server.Topics-Functional_interfaces-Theory.main" target="11" />
+      <module name="File_Server.Topics-Input_streams-Byte_vs_character_input_streams.main" target="11" />
+      <module name="File_Server.Topics-Input_streams-FileInputStream_class.main" target="11" />
+      <module name="File_Server.Topics-Input_streams-Read_into_an_array.main" target="11" />
+      <module name="File_Server.Topics-Input_streams-Reverse_input_text.main" target="11" />
+      <module name="File_Server.Topics-Input_streams-Theory.main" target="11" />
+      <module name="File_Server.Topics-Lambda_expressions-Apply_function_to_all_elements.main" target="11" />
+      <module name="File_Server.Topics-Lambda_expressions-Higher-order_functions.main" target="11" />
+      <module name="File_Server.Topics-Lambda_expressions-Max_of_two_integers.main" target="11" />
+      <module name="File_Server.Topics-Lambda_expressions-Production_of_all_numbers_in_the_range.main" target="11" />
+      <module name="File_Server.Topics-Lambda_expressions-Statements.main" target="11" />
+      <module name="File_Server.Topics-Lambda_expressions-Theory.main" target="11" />
+      <module name="File_Server.Topics-Output_streams-Convert_to_char_array.main" target="11" />
+      <module name="File_Server.Topics-Output_streams-Theory.main" target="11" />
+      <module name="File_Server.Topics-Serialization_basics-Serializable_user.main" target="11" />
+      <module name="File_Server.Topics-Serialization_basics-Theory.main" target="11" />
+      <module name="File_Server.Topics-Thread_management-Ordering_the_execution_of_threads.main" target="11" />
+      <module name="File_Server.Topics-Thread_management-Summing_with_threads.main" target="11" />
+      <module name="File_Server.Topics-Thread_management-Theory.main" target="11" />
+      <module name="File_Server.Topics-Thread_management-Workers_in_programs.main" target="11" />
+      <module name="File_Server.Topics-Thread_synchronization-Countdown_counter.main" target="11" />
+      <module name="File_Server.Topics-Thread_synchronization-Multithreaded_counter.main" target="11" />
+      <module name="File_Server.Topics-Thread_synchronization-Theory.main" target="11" />
+      <module name="File_Server.Topics-Thread_synchronization-Two_methods,_two_statements.main" target="11" />
+      <module name="File_Server.Topics-Threads_as_objects-Counting_threads.main" target="11" />
+      <module name="File_Server.Topics-Threads_as_objects-Getting_current_thread_info.main" target="11" />
+      <module name="File_Server.Topics-Threads_as_objects-Is_thread_daemon.main" target="11" />
+      <module name="File_Server.Topics-Threads_as_objects-Theory.main" target="11" />
+      <module name="File_Server.Topics-Threads_as_objects-Thread_name.main" target="11" />
+      <module name="File_Server.Topics-Throwing_exceptions-Possible_declaration.main" target="11" />
+      <module name="File_Server.Topics-Throwing_exceptions-The_root_of_a_number.main" target="11" />
+      <module name="File_Server.Topics-Throwing_exceptions-Theory.main" target="11" />
+      <module name="File_Server.Topics-Throwing_exceptions-Throw_an_IOException.main" target="11" />
+      <module name="File_Server.Topics-Throwing_exceptions-Throw_an_unchecked_exception.main" target="11" />
+      <module name="File_Server.Topics-Throwing_exceptions-Throwable_classes.main" target="11" />
+      <module name="File_Server.util.main" target="11" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

@@ -1,0 +1,3 @@
+0[Milk $3.5]
+Total: $3.5
+Balance: $0.0

@@ -1,0 +1,17 @@
+type: code
+files:
+- name: src/Main.java
+  visible: true
+  text: |-
+    class ThreadUtil {
+        public static String getName(Thread thread) {
+            // implement logic
+        }
+    }
+  learner_created: false
+feedback_link: https://hyperskill.org/learn/step/13220#comment
+status: Solved
+feedback:
+  message: <html>Correct solution</html>
+  time: Fri, 25 Mar 2022 14:41:40 UTC
+record: -1

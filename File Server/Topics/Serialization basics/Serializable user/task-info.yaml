@@ -1,0 +1,18 @@
+type: code
+files:
+- name: src/Main.java
+  visible: true
+  text: |-
+    import java.io.Serializable;
+
+    class User {
+        String name;
+        String password;
+    }
+  learner_created: false
+feedback_link: https://hyperskill.org/learn/step/8153#comment
+status: Solved
+feedback:
+  message: <html>Correct solution</html>
+  time: Sat, 26 Mar 2022 14:52:30 UTC
+record: -1

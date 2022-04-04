@@ -1,0 +1,72 @@
+[1;31m
+Start test 1[0m
+PEnter action (1 - get the file, 2 - create a file, 3 - delete the file): > exit
+The request was sent.
+[1;31m
+Start test 2[0m
+[1;31m
+Start test 3[0m
+MEnter action (1 - get the file, 2 - create a file, 3 - delete the file): > 2
+1Enter name of the file: > test_purpose_test1.txt
+1Enter name of the file to be saved on server: > 
+The request was sent.
+6Response says that file is saved! ID = 1648379556404
+MEnter action (1 - get the file, 2 - create a file, 3 - delete the file): > 2
+1Enter name of the file: > test_purpose_test2.txt
+IEnter name of the file to be saved on server: > test_purpose_newFile.txt
+The request was sent.
+6Response says that file is saved! ID = 1648379556426
+MEnter action (1 - get the file, 2 - create a file, 3 - delete the file): > 1
+DDo you want to get the file by name or by id (1 - name, 2 - id):> 1
+,Enter filename: > test_purpose_notExist.txt
+The request was sent.
+0The response says that this file is not found!
+MEnter action (1 - get the file, 2 - create a file, 3 - delete the file): > 1
+DDo you want to get the file by name or by id (1 - name, 2 - id):> 2
+Enter id: > 1648379556404511
+The request was sent.
+0The response says that this file is not found!
+MEnter action (1 - get the file, 2 - create a file, 3 - delete the file): > 1
+DDo you want to get the file by name or by id (1 - name, 2 - id):> 1
++Enter filename: > test_purpose_newFile.txt
+The request was sent.
+GThe file was downloaded! Specify a name for it: > test_purpose_get.txt
+File saved on the hard drive!
+MEnter action (1 - get the file, 2 - create a file, 3 - delete the file): > 1
+DDo you want to get the file by name or by id (1 - name, 2 - id):> 2
+Enter id: > 1648379556404
+The request was sent.
+JThe file was downloaded! Specify a name for it: > test_purpose_get_id.txt
+File saved on the hard drive!
+PEnter action (1 - get the file, 2 - create a file, 3 - delete the file): > exit
+The request was sent.
+[1;31m
+Start test 4[0m
+MEnter action (1 - get the file, 2 - create a file, 3 - delete the file): > 1
+DDo you want to get the file by name or by id (1 - name, 2 - id):> 1
++Enter filename: > test_purpose_newFile.txt
+The request was sent.
+UThe file was downloaded! Specify a name for it: > test_purpose_get_after_restart.txt
+File saved on the hard drive!
+MEnter action (1 - get the file, 2 - create a file, 3 - delete the file): > 1
+DDo you want to get the file by name or by id (1 - name, 2 - id):> 2
+Enter id: > 1648379556404
+The request was sent.
+[The file was downloaded! Specify a name for it: > test_purpose_get_by_id_after_restart.txt
+File saved on the hard drive!
+PEnter action (1 - get the file, 2 - create a file, 3 - delete the file): > exit
+The request was sent.
+[1;31m
+Start test 5[0m
+MEnter action (1 - get the file, 2 - create a file, 3 - delete the file): > 3
+HDo you want to delete the file by name or by id (1 - name, 2 - id): > 1
++Enter filename: > test_purpose_newFile.txt
+The request was sent.
+<The response says that this file was deleted successfully!
+MEnter action (1 - get the file, 2 - create a file, 3 - delete the file): > 3
+HDo you want to delete the file by name or by id (1 - name, 2 - id): > 2
+Enter id: > 1648379556404
+The request was sent.
+<The response says that this file was deleted successfully!
+PEnter action (1 - get the file, 2 - create a file, 3 - delete the file): > exit
+The request was sent.

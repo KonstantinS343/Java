@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - Class FileServerTest</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>Class FileServerTest</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/default-package.html">default-package</a> &gt; FileServerTest</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">1</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">4.879s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="tabs">
+<ul class="tabLinks">
+<li>
+<a href="#tab0">Tests</a>
+</li>
+<li>
+<a href="#tab1">Standard output</a>
+</li>
+</ul>
+<div id="tab0" class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">start</td>
+<td class="success">4.879s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div id="tab1" class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>?[1;31m
+Start test 1?[0m
+Enter action (1 - get the file, 2 - create a file, 3 - delete the file): &gt; exit
+The request was sent.
+?[1;31m
+Start test 2?[0m
+?[1;31m
+Start test 3?[0m
+Enter action (1 - get the file, 2 - create a file, 3 - delete the file): &gt; 2
+Enter name of the file: &gt; test_purpose_test1.txt
+Enter name of the file to be saved on server: &gt; 
+The request was sent.
+Response says that file is saved! ID = 1648379556404
+Enter action (1 - get the file, 2 - create a file, 3 - delete the file): &gt; 2
+Enter name of the file: &gt; test_purpose_test2.txt
+Enter name of the file to be saved on server: &gt; test_purpose_newFile.txt
+The request was sent.
+Response says that file is saved! ID = 1648379556426
+Enter action (1 - get the file, 2 - create a file, 3 - delete the file): &gt; 1
+Do you want to get the file by name or by id (1 - name, 2 - id):&gt; 1
+Enter filename: &gt; test_purpose_notExist.txt
+The request was sent.
+The response says that this file is not found!
+Enter action (1 - get the file, 2 - create a file, 3 - delete the file): &gt; 1
+Do you want to get the file by name or by id (1 - name, 2 - id):&gt; 2
+Enter id: &gt; 1648379556404511
+The request was sent.
+The response says that this file is not found!
+Enter action (1 - get the file, 2 - create a file, 3 - delete the file): &gt; 1
+Do you want to get the file by name or by id (1 - name, 2 - id):&gt; 1
+Enter filename: &gt; test_purpose_newFile.txt
+The request was sent.
+The file was downloaded! Specify a name for it: &gt; test_purpose_get.txt
+File saved on the hard drive!
+Enter action (1 - get the file, 2 - create a file, 3 - delete the file): &gt; 1
+Do you want to get the file by name or by id (1 - name, 2 - id):&gt; 2
+Enter id: &gt; 1648379556404
+The request was sent.
+The file was downloaded! Specify a name for it: &gt; test_purpose_get_id.txt
+File saved on the hard drive!
+Enter action (1 - get the file, 2 - create a file, 3 - delete the file): &gt; exit
+The request was sent.
+?[1;31m
+Start test 4?[0m
+Enter action (1 - get the file, 2 - create a file, 3 - delete the file): &gt; 1
+Do you want to get the file by name or by id (1 - name, 2 - id):&gt; 1
+Enter filename: &gt; test_purpose_newFile.txt
+The request was sent.
+The file was downloaded! Specify a name for it: &gt; test_purpose_get_after_restart.txt
+File saved on the hard drive!
+Enter action (1 - get the file, 2 - create a file, 3 - delete the file): &gt; 1
+Do you want to get the file by name or by id (1 - name, 2 - id):&gt; 2
+Enter id: &gt; 1648379556404
+The request was sent.
+The file was downloaded! Specify a name for it: &gt; test_purpose_get_by_id_after_restart.txt
+File saved on the hard drive!
+Enter action (1 - get the file, 2 - create a file, 3 - delete the file): &gt; exit
+The request was sent.
+?[1;31m
+Start test 5?[0m
+Enter action (1 - get the file, 2 - create a file, 3 - delete the file): &gt; 3
+Do you want to delete the file by name or by id (1 - name, 2 - id): &gt; 1
+Enter filename: &gt; test_purpose_newFile.txt
+The request was sent.
+The response says that this file was deleted successfully!
+Enter action (1 - get the file, 2 - create a file, 3 - delete the file): &gt; 3
+Do you want to delete the file by name or by id (1 - name, 2 - id): &gt; 2
+Enter id: &gt; 1648379556404
+The request was sent.
+The response says that this file was deleted successfully!
+Enter action (1 - get the file, 2 - create a file, 3 - delete the file): &gt; exit
+The request was sent.
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="http://www.gradle.org">Gradle 7.3.3</a> at 27 мар. 2022 г., 14:12:40</p>
+</div>
+</div>
+</body>
+</html>

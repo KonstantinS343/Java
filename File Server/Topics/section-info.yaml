@@ -1,0 +1,13 @@
+content:
+- Throwing exceptions
+- Lambda expressions
+- Threads as objects
+- Custom threads
+- Thread management
+- Input streams
+- Output streams
+- Anonymous classes
+- Functional interfaces
+- Thread synchronization
+- Executors
+- Serialization basics

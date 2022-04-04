@@ -1,0 +1,25 @@
+type: choice
+is_multiple_choice: true
+options:
+- text: The first application always outputs the text in the same order
+- text: In both applications the main thread waits for <b>t1</b>, <b>t2</b>, <b>t3</b>
+- text: In the first application threads <b>t1</b>, <b>t2</b>, <b>t3</b> may work
+    in parallel
+- text: In the second application threads <b>t1</b>, <b>t2</b>, <b>t3</b> may work
+    in parallel
+- text: The second application always outputs the text in the same order
+files:
+- name: src/Task.java
+  visible: true
+  text: |
+    // You can experiment here, it won’t be checked
+
+    public class Task {
+      public static void main(String[] args) {
+        // put your code here
+      }
+    }
+  learner_created: false
+feedback_link: https://hyperskill.org/learn/step/2540#comment
+status: Solved
+record: -1

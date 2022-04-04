@@ -1,0 +1,19 @@
+type: code
+files:
+- name: src/Main.java
+  visible: true
+  text: |-
+    import java.util.function.*;
+
+
+    class Operator {
+
+        public static LongBinaryOperator binaryOperator = // Write your code here
+    }
+  learner_created: false
+feedback_link: https://hyperskill.org/learn/step/2365#comment
+status: Solved
+feedback:
+  message: <html>Correct solution</html>
+  time: Fri, 25 Mar 2022 13:46:28 UTC
+record: -1

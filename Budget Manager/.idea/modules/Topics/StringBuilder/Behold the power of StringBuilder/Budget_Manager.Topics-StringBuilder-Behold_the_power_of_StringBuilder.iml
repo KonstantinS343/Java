@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module external.linked.project.id=":Topics-StringBuilder-Behold_the_power_of_StringBuilder" external.linked.project.path="$MODULE_DIR$/../../../../../Topics/StringBuilder/Behold the power of StringBuilder" external.root.project.path="$MODULE_DIR$/../../../../.." external.system.id="GRADLE" external.system.module.group="Budget Manager" external.system.module.version="unspecified" type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$/../../../../../Topics/StringBuilder/Behold the power of StringBuilder">
+      <excludeFolder url="file://$MODULE_DIR$/../../../../../Topics/StringBuilder/Behold the power of StringBuilder/.gradle" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../../../Topics/StringBuilder/Behold the power of StringBuilder/build" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../../../Topics/StringBuilder/Behold the power of StringBuilder/out" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>

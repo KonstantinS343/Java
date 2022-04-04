@@ -1,0 +1,53 @@
+<h2>Workers in programs</h2>
+<html>
+ <head></head>
+ <body>
+  <p>Take a look at a class that extends <code class="language-java">Thread</code>:</p> 
+  <pre><code class="language-java">class Worker extends Thread {
+    private final String str;
+    
+    public Worker(String str) {
+        this.str = str;
+    }
+    
+    @Override
+    public void run() {
+        System.out.println(str);
+    }
+}</code></pre> 
+  <p>There are two applications that use this class. Select all correct statements about them.</p> 
+  <p><strong>The first application:</strong></p> 
+  <pre><code class="language-java">public class Application1 {
+    public static void main(String args[]) throws InterruptedException {
+        Thread t1 = new Worker("Hello from t1");
+        Thread t2 = new Worker("Hello from t2");
+        Thread t3 = new Worker("Hello from t3");
+        
+        t1.start();
+        t2.start();
+        t3.start();
+        
+        t1.join();
+        t2.join();
+        t3.join();
+    }
+}</code></pre> 
+  <p><strong>The second application:</strong></p> 
+  <pre><code class="language-java">public class Application2 {
+    public static void main(String args[]) throws InterruptedException {
+        Thread t1 = new Worker("Hello from t1");
+        Thread t2 = new Worker("Hello from t2");
+        Thread t3 = new Worker("Hello from t3");
+        
+        t1.start();
+        t1.join();
+        
+        t2.start();
+        t2.join();
+        
+        t3.start();
+        t3.join();
+    }
+}</code></pre>
+ </body>
+</html>

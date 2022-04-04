@@ -1,0 +1,34 @@
+<h2>The max number of parallel threads</h2>
+<html>
+ <head></head>
+ <body>
+  <p>What is the maximum number of threads that can work in parallel in the program below?</p> 
+  <p><code class="language-java">SlackerThread</code> is a class representing a thread that sleeps a random number of seconds after the start.</p> 
+  <p><button class="btn-sm btn-outline-secondary" onclick="getElementById('hint-221').style.display='inline'"> Hint </button> </p>
+  <div id="hint-221" style="display:none;">
+    Don't forget about the main thread. 
+  </div>
+  <p></p> 
+  <pre><code class="language-java">public class Main {
+    
+    public static void main(String args[]) throws InterruptedException {
+        Thread t1 = new SlackerThread();
+        Thread t2 = new SlackerThread();
+        
+        t1.start();
+        t2.start();
+        
+        t2.join();
+        
+        Thread t3 = new SlackerThread();
+        Thread t4 = new SlackerThread();
+        
+        t3.start();
+        t4.start();
+        
+        t3.join();
+        t4.join();
+    }
+}</code></pre>
+ </body>
+</html>

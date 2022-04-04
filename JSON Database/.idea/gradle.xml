@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleMigrationSettings" migrationVersion="1" />
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="delegatedBuild" value="false" />
+        <option name="testRunner" value="GRADLE" />
+        <option name="distributionType" value="WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/JSON Database/task" />
+            <option value="$PROJECT_DIR$/JSON Database/task/build/classes/java" />
+            <option value="$PROJECT_DIR$/JSON Database/task/build/generated/sources/annotationProcessor/java" />
+            <option value="$PROJECT_DIR$/JSON Database/task/build/generated/sources/headers/java" />
+            <option value="$PROJECT_DIR$/JSON Database/task/build/reports/tests" />
+            <option value="$PROJECT_DIR$/JSON Database/task/build/test-results" />
+            <option value="$PROJECT_DIR$/JSON Database/task/build/tmp" />
+            <option value="$PROJECT_DIR$/Topics/Command/Forex Broker" />
+            <option value="$PROJECT_DIR$/Topics/Command/Real-World examples" />
+            <option value="$PROJECT_DIR$/Topics/Command/Remote Controller" />
+            <option value="$PROJECT_DIR$/Topics/Command/Stock Broker" />
+            <option value="$PROJECT_DIR$/Topics/Command/Theory" />
+            <option value="$PROJECT_DIR$/Topics/Custom exceptions/Checked exception with constructor" />
+            <option value="$PROJECT_DIR$/Topics/Custom exceptions/Handle incorrect inputs" />
+            <option value="$PROJECT_DIR$/Topics/Custom exceptions/Square class" />
+            <option value="$PROJECT_DIR$/Topics/Custom exceptions/Theory" />
+            <option value="$PROJECT_DIR$/util" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>
