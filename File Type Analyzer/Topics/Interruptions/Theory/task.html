@@ -1,0 +1,78 @@
+<h2>Interruptions</h2>
+<html>
+ <head></head>
+ <body>
+  <p>A thread terminates when its <code class="language-java">run</code> method stops. Sometimes you may have to terminate a task that is being executed, for example when shutting down an application with multiple threads. Java provides a mechanism called <strong>interruptions</strong> for requesting a thread to stop or to do something else. Interruption does not force a thread to react immediately but notifies it about such demand.</p> 
+  <h5 style="text-align: center;">Interrupt() and isInterrupted()</h5> 
+  <p>Invoking the <code class="language-java">interrupt()</code> method on an instance of the <code class="language-java">Thread</code> class sets its interrupted flag as <code class="language-java">true</code>.</p> 
+  <pre><code class="language-java">Thread thread = ...
+thread.interrupt(); // interrupt this thread</code></pre> 
+  <p>The reaction to this event is determined by the interrupted thread itself. One common case for that is to stop the execution. Though a thread may simply ignore it.</p> 
+  <p>Depending on the current state of a thread, interruptions are handled differently. Invoking <code class="language-java">thread.interrupt()</code> will cause <code class="language-java">InterruptedException</code> if the thread is sleeping or joining another thread. Otherwise, the only thing that will happen is that the interrupted flag will be set to <code class="language-java">true</code>.</p> 
+  <p style="text-align: left;">Here is an example of how a thread may handle an interruption:</p> 
+  <pre><code class="language-java">public class CustomThread extends Thread {
+
+    @Override
+    public void run() {
+        while (!isInterrupted()) {
+            try {
+                doAction();
+                Thread.sleep(1000); // it may throw InterruptedException
+            } catch (InterruptedException e) {
+                System.out.println("sleeping was interrupted");
+                break; // stop the loop
+            }
+        }
+        System.out.printf("%s finished", getName());
+    }
+
+    private void doAction() {
+        // something useful
+    }
+}</code></pre> 
+  <p><br> When this thread is running, an interruption may occur on any statement inside the run method, including checking the loop's condition, performing <code class="language-java">doAction</code> and during sleep. If the thread is sleeping, <code class="language-java">Thread.sleep(1000)</code> throws an <code class="language-java">InterruptedException</code> that is handled. In other cases, the loop is stopped according to the condition on the next iteration.</p> 
+  <p>If you prefer implementing <code class="language-java">Runnable</code> rather than extending <code class="language-java">Thread</code> directly, you may use the static method <code class="language-java">Thread.interrupted()</code> inside the run method. The main difference between this and the previous method is that the static method resets the interruption status to <code class="language-java">false</code>.</p> 
+  <h5 style="text-align: center;">An example: counting with interruption</h5> 
+  <p>As an example, we will consider a task that counts numbers while the thread is not interrupted.</p> 
+  <pre><code class="language-java">class CountingTask implements Runnable {
+
+    @Override
+    public void run() {
+        System.out.println("Start counting");
+        int i = 1; // the first number to print
+
+        try {
+            while (!Thread.interrupted()) {
+                System.out.println(i);
+                i++;
+                Thread.sleep(1000); 
+            }
+        } catch (InterruptedException e) {
+            System.out.println("Sleeping was interrupted");
+        }
+        System.out.println("Finishing");
+    }
+}</code></pre> 
+  <p>In this implementation, the <code class="language-java">sleep</code> takes almost all the time and interruption will often occur during sleeping. If the program does not print the string <strong>"Sleeping was interrupted"</strong> it means that the thread was interrupted during work, not sleep.</p> 
+  <p>In the <code class="language-java">main</code> method, we create a thread to perform the task and then interrupt the thread.</p> 
+  <pre><code class="language-java">public class InterruptionDemo {
+
+    public static void main(String[] args) throws InterruptedException {
+        Thread counter = new Thread(new CountingTask());
+        counter.start();
+        Thread.sleep(5000L);
+        counter.interrupt();
+        counter.join();
+    }
+}</code></pre> 
+  <p><strong>Note </strong>that in the <code class="language-java">main</code> method, both methods <code class="language-java">sleep</code> and <code class="language-java">join</code> may also throw <code class="language-java">InterruptedException</code> upon being interrupted. Handling this was omitted here only for brevity.</p> 
+  <p>The program output is:</p> 
+  <pre><code class="language-java">Start counting
+1
+2
+3
+4
+Sleeping was interrupted
+Finishing</code></pre>
+ </body>
+</html>

@@ -1,0 +1,23 @@
+type: choice
+is_multiple_choice: false
+options:
+- text: throws InterruptedException
+- text: stops a thread immediately
+- text: sets interrupted field <b>true</b>
+- text: sets interrupted field <b>true</b> or throws InterruptedException
+- text: stops a thread within a provided timeout
+files:
+- name: src/Task.java
+  visible: true
+  text: |
+    // You can experiment here, it won’t be checked
+
+    public class Task {
+      public static void main(String[] args) {
+        // put your code here
+      }
+    }
+  learner_created: false
+feedback_link: https://hyperskill.org/learn/step/13647#comment
+status: Solved
+record: -1

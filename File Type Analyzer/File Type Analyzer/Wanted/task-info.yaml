@@ -1,0 +1,348 @@
+type: edu
+custom_name: Wanted!
+files:
+- name: src/analyzer/Main.java
+  visible: true
+  text: |
+    package analyzer;
+
+    public class Main {
+        public static void main(String[] args) {
+            System.out.println("Hello World!");
+        }
+    }
+  learner_created: false
+- name: test/Clue.java
+  visible: false
+  text: |
+    public class Clue {
+        public String output;
+        public int threadsStarted;
+        public String feedback;
+
+        public Clue(String output, int threadsStarted, String feedback) {
+            this.output = output;
+            this.threadsStarted = threadsStarted;
+            this.feedback = feedback;
+        }
+
+    }
+  learner_created: false
+- name: test/MainTest.java
+  visible: false
+  text: |2
+
+    import analyzer.Main;
+    import org.hyperskill.hstest.stage.StageTest;
+    import org.hyperskill.hstest.testcase.CheckResult;
+    import org.hyperskill.hstest.testcase.TestCase;
+    import org.junit.AfterClass;
+    import org.junit.BeforeClass;
+
+    import java.io.File;
+    import java.io.IOException;
+    import java.lang.management.ManagementFactory;
+    import java.nio.file.Files;
+    import java.nio.file.Paths;
+    import java.util.List;
+    import java.util.function.Function;
+
+    public class MainTest extends StageTest<Clue> {
+        private static final String CURRENT_DIR = System.getProperty("user.dir") + File.separator;
+        private static int startedThreadCount = 0;
+
+        @Override
+        public List<TestCase<Clue>> generate() {
+            return List.of(
+                    //Testing basic cases
+                    new TestCase<Clue>()
+                            .addArguments(new String[]
+                                    {"test_files", "%PDF-", "PDF document"})
+                            .addFile("test_files" + File.separator + "doc.pdf", "PFDF%PDF-PDF")
+                            .addFile("test_files" + File.separator + "text.txt", "PF%PDF-PDFABC")
+                            .setAttach(new Clue("doc.pdf: PDF document\n" +
+                                    "text.txt: PDF document", 2, "The files had following content: " + "\n" +
+                                    "\"PFDF%PDF-PDF\", \"PF%PDF-PDFABC\" and were analyzed for pattern \"%PDF-\"")),
+
+                    new TestCase<Clue>()
+                            .addArguments(new String[]
+                                    {"test_files", "-----BEGIN\\CERTIFICATE-----", "PEM certificate"})
+                            .addFile("test_files" + File.separator + "file.pem", "PF-----BEGIN\\CERTIFICATE-----DF%PDF-PDF")
+                            .addFile("test_files" + File.separator + "file.pdf", "PF%P-----BEGIN\\CERTIFICATE-----DF-PDF")
+                            .setAttach(new Clue("file.pdf: PEM certificate\n" +
+                                    "file.pem: PEM certificate", 2, "")),
+
+                    //Testing with only one file in the directory
+                    new TestCase<Clue>()
+                            .addArguments(new String[]
+                                    {"test_files", "-----BEGIN\\CERTIFICATE-----", "PEM certificate"})
+                            .addFile("test_files" + File.separator + "the_only_file.pem", "PF-----BEGIN\\CERTIFICATE-----DF%PDF-PDF")
+                            .setAttach(new Clue("the_only_file.pem: PEM certificate", 1, "")),
+
+                    //Testing with 10 files in the directory
+                    new TestCase<Clue>()
+                            .addArguments(new String[]
+                                    {"test_files", "%txt-", "TXT document"})
+                            .addFile("test_files" + File.separator + "doc0.pdf", "PFDF%PDF%txt-PDF")
+                            .addFile("test_files" + File.separator + "doc1.pdf", "PF%PDF%txt-PDF")
+                            .addFile("test_files" + File.separator + "doc2.pdf", "PFDF%PDF%txt-PF")
+                            .addFile("test_files" + File.separator + "doc3.pdf", "PF%PF%txt-PDF")
+                            .addFile("test_files" + File.separator + "doc4.pdf", "PFDF%PDF%txt-PDF")
+                            .addFile("test_files" + File.separator + "doc5.pdf", "PF%PDF%txt-PDF")
+                            .addFile("test_files" + File.separator + "doc6.pdf", "PFF%PDF%txt-PDF")
+                            .addFile("test_files" + File.separator + "doc7.pdf", "PF%DF%txt-PDF")
+                            .addFile("test_files" + File.separator + "doc8.pdf", "PFDF%PDFPDF")
+                            .addFile("test_files" + File.separator + "doc9.txt", "PF%PDF%PDF")
+                            .setAttach(new Clue("doc0.pdf: TXT document\n" +
+                                    "doc1.pdf: TXT document\n" +
+                                    "doc2.pdf: TXT document\n" +
+                                    "doc3.pdf: TXT document\n" +
+                                    "doc4.pdf: TXT document\n" +
+                                    "doc5.pdf: TXT document\n" +
+                                    "doc6.pdf: TXT document\n" +
+                                    "doc7.pdf: TXT document\n" +
+                                    "doc8.pdf: Unknown file type\n" +
+                                    "doc9.txt: Unknown file type", 10, ""))
+            );
+        }
+
+        @Override
+        public CheckResult check(String reply, Clue clue) {
+            long currentThreads = ManagementFactory.getThreadMXBean().getTotalStartedThreadCount();
+            long startedThisTestThread = currentThreads - startedThreadCount;
+
+            long neededThreads = startedThreadCount + clue.threadsStarted;
+            long startedThisTestNeededThreads = neededThreads - startedThreadCount;
+
+            Function<Long, String> threadName = count ->
+                    count + " thread" + (count == 1 ? "" : "s");
+
+            if (startedThisTestThread < startedThisTestNeededThreads) {
+                return CheckResult.wrong(
+                        "There were not enough Threads started, " +
+                                "you should process each file in a different Thread. " +
+                                "\nYou started " + threadName.apply(startedThisTestThread) + ", " +
+                                "but you need to start " + threadName.apply(startedThisTestNeededThreads) + ". " +
+                                "\nThe executor.invokeAll() method might help. Also, don't forget to call .shutdown()."
+                );
+            }
+
+            startedThreadCount = (int) currentThreads;
+
+            String[] expectedLines = clue.output.split("\n");
+            String actual = reply.strip();
+
+            if (actual.isEmpty()) {
+                return CheckResult.wrong("No output (check if you exited " +
+                        "from main too early, you should wait until all threads are finishes)");
+            }
+
+            int expectedLinesLength = expectedLines.length;
+
+            if (actual.trim().split("\n").length != expectedLines.length) {
+                return CheckResult.wrong(String.format("There is should be %d lines in the output when you check %d files!\nMake sure you don't print empty lines.", expectedLinesLength, expectedLinesLength));
+            }
+
+            for (String expectedLine : expectedLines) {
+                if (!actual.toLowerCase().contains(expectedLine.toLowerCase())) {
+                    return new CheckResult(false, "Can't find the line '"
+                            + expectedLine + "' in the output!");
+                }
+            }
+
+            return CheckResult.correct();
+        }
+
+        @BeforeClass
+        public static void generateTestFilesDirectory() {
+            try {
+                Files.deleteIfExists(Paths.get(CURRENT_DIR + "test_files"));
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            try {
+                Files.createDirectory(Paths.get(CURRENT_DIR + "test_files"));
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+
+        @BeforeClass
+        public static void countThreadsBefore() {
+            startedThreadCount += ManagementFactory.getThreadMXBean().getTotalStartedThreadCount();
+        }
+
+        @AfterClass
+        public static void deleteTestFilesDirectory() {
+            try {
+                Files.deleteIfExists(Paths.get(CURRENT_DIR + "test_files"));
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+
+    }
+  learner_created: false
+- name: src/analyzer/CheckFile.java
+  visible: true
+  text: |
+    package analyzer;
+
+    import java.io.File;
+    import java.io.IOException;
+    import java.nio.charset.StandardCharsets;
+    import java.nio.file.Files;
+    import java.nio.file.Path;
+
+    public class CheckFile {
+
+        private final  String FileName;
+        private final  String TemlateOfFile;
+        private final  String TypeOfFile;
+        private  final  String TypeOfSearch;
+
+        public CheckFile(String TypeOfSearch, String FileName, String TemlateOfFile, String TypeOfFile) {
+            this.FileName = FileName;
+            this.TemlateOfFile = TemlateOfFile;
+            this.TypeOfFile = TypeOfFile;
+            this.TypeOfSearch = TypeOfSearch;
+        }
+
+        public  void Analyze(){
+
+            Path path =new File(FileName).toPath();
+            String Content = " ";
+
+            try {
+                byte[] data = Files.readAllBytes(path);
+
+                Content = new String(data, StandardCharsets.UTF_8);
+
+
+            }catch (IOException e){
+                System.out.println("ERROR");
+                return;
+            }
+
+
+            if(TypeOfSearch.equals("--naive")) {
+
+                long before = System.currentTimeMillis();
+
+                new SimpleSerch().SerachRun(Content, TemlateOfFile, TypeOfFile);
+
+                long after = System.currentTimeMillis();
+
+                System.out.println("It took "+(after - before) + " seconds");
+
+            } else if (TypeOfSearch.equals("--KMP")){
+
+                long before = System.currentTimeMillis();
+
+                new KMPSearch().SearchRun(Content, TemlateOfFile, TypeOfFile);
+
+                long after = System.currentTimeMillis();
+
+                System.out.println("It took "+(after - before) + " seconds");
+
+            } else{
+
+                System.out.println("ERROR");
+
+            }
+        }
+
+    }
+  learner_created: true
+- name: src/analyzer/KMPSearch.java
+  visible: true
+  text: |
+    package analyzer;
+
+    public class KMPSearch {
+
+        public void SearchRun(String Content, String TemlateOfFile, String TypeOfFile){
+
+            int [] PrefixArray = Prefix(TemlateOfFile);
+            int i = 0;
+            int j = 0;
+            boolean check = false;
+
+            while(i < Content.length()){
+
+                if(Content.charAt(i) == TemlateOfFile.charAt(j)){
+                    i++;
+                    j++;
+                }
+
+                if(j == PrefixArray.length){
+                    check = true;
+                    break;
+                }else if (i < Content.length() && Content.charAt(i) != TemlateOfFile.charAt(j)){
+                     if(j!= 0){
+                         j = PrefixArray[j-1];
+                     } else{
+                         i = i+1;
+                     }
+                }
+
+            }
+
+            if(check){
+                System.out.println(new Response().OutputRigthAnswer(TypeOfFile));
+            }else{
+                System.out.println(new Response().getError());
+            }
+
+        }
+
+        public int[] Prefix(String Content){
+
+            int [] prefixarray = new int[Content.length()];
+
+            for(int  i = 1; i < Content.length(); i++) {
+                int j = 0;
+                while(i+j < Content.length() && Content.charAt(j) == Content.charAt(i+j)){
+
+                    prefixarray[i+j] = Math.max(j+1, prefixarray[i+j]);
+                    j++;
+                }
+            }
+            return  prefixarray;
+        }
+
+    }
+  learner_created: true
+- name: src/analyzer/Response.java
+  visible: true
+  text: |
+    package analyzer;
+
+    public class Response {
+
+        private  String RigthAnswer;
+        private final String Error = "Unknown file type";
+
+        public String OutputRigthAnswer(String rigthAnswer) {
+            this.RigthAnswer = rigthAnswer;
+            return RigthAnswer;
+        }
+
+
+        public String getError() {
+            return Error;
+        }
+    }
+  learner_created: true
+- name: src/analyzer/Threaded.java
+  visible: true
+  learner_created: true
+- name: src/analyzer/Request.java
+  visible: true
+  learner_created: true
+feedback_link: https://hyperskill.org/learn/step/5487#comment
+status: Solved
+feedback:
+  message: Congratulations!
+  time: Fri, 08 Apr 2022 07:05:24 UTC
+record: 3

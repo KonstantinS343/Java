@@ -1,0 +1,20 @@
+type: code
+files:
+- name: src/Main.java
+  visible: true
+  text: |-
+    import java.util.Scanner;
+    import java.util.concurrent.Callable;
+
+    class CallableUtil {
+        public static Callable<String> getCallable() {
+            // implement method
+        }
+    }
+  learner_created: false
+feedback_link: https://hyperskill.org/learn/step/13873#comment
+status: Solved
+feedback:
+  message: <html>Correct solution</html>
+  time: Thu, 07 Apr 2022 17:27:54 UTC
+record: -1

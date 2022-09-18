@@ -1,0 +1,23 @@
+type: choice
+is_multiple_choice: true
+options:
+- text: It returns the special code, that indicates that the task is not completed
+    yet, and you can invoke it later again
+- text: The current thread waits for the result of the task
+- text: It throws an exception
+- text: It immediately returns the result
+files:
+- name: src/Task.java
+  visible: true
+  text: |
+    // You can experiment here, it won’t be checked
+
+    public class Task {
+      public static void main(String[] args) {
+        // put your code here
+      }
+    }
+  learner_created: false
+feedback_link: https://hyperskill.org/learn/step/4909#comment
+status: Solved
+record: -1

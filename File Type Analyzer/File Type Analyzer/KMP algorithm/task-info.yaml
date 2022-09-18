@@ -1,0 +1,260 @@
+type: edu
+custom_name: stage2
+files:
+- name: src/analyzer/Main.java
+  visible: true
+  text: |
+    package analyzer;
+
+    public class Main {
+        public static void main(String[] args) {
+            System.out.println("Hello World!");
+        }
+    }
+  learner_created: false
+- name: test/MainTest.java
+  visible: false
+  text: |2
+
+    import analyzer.Main;
+    import org.hyperskill.hstest.stage.StageTest;
+    import org.hyperskill.hstest.testcase.CheckResult;
+    import org.hyperskill.hstest.testcase.TestCase;
+    import org.junit.BeforeClass;
+
+    import java.util.List;
+
+    public class MainTest extends StageTest<Clue> {
+        static String largeContent;
+
+        String pdf = "PDF document";
+        String doc = "DOC document";
+        String unknown = "Unknown file type";
+        String file = "doc.pdf";
+
+        @Override
+        public List<TestCase<Clue>> generate() {
+            return List.of(
+                new TestCase<Clue>()
+                    .addArguments(new String[] {
+                            "--naive",
+                            file,
+                            "%PDF%PDF%PDF%PDF%PDF%PDF%PDF%PDF%PDF%PDF%PDF%PDF%PDF%PDF%PDF%PDF-",
+                            pdf
+                        })
+                    .addFile(file, largeContent)
+                    .setAttach(new Clue(pdf)),
+
+                new TestCase<Clue>()
+                    .addArguments(new String[] {
+                            "--KMP",
+                            file,
+                            "%PDF%PDF%PDF%PDF%PDF%PDF%PDF%PDF%PDF%PDF%PDF%PDF%PDF%PDF%PDF%PDF-",
+                            doc
+                        })
+                    .addFile(file, largeContent)
+                    .setAttach(new Clue(doc)),
+
+                new TestCase<Clue>()
+                    .addArguments(new String[] {
+                            "--naive",
+                            file,
+                            "%PDF%PDF%PDF%PDF%PDF%PDF%PDF%PDF%PDF%PDF%PDF%PDF%PDF%PDF%PDF%PDF+",
+                            unknown
+                        })
+                    .addFile(file, largeContent)
+                    .setAttach(new Clue(unknown)),
+
+                new TestCase<Clue>()
+                    .addArguments(new String[] {
+                            "--KMP",
+                            file,
+                            "%PDF%PDF%PDF%PDF%PDF%PDF%PDF%PDF%PDF%PDF%PDF%PDF%PDF%PDF%PDF%PDF+",
+                            unknown
+                        })
+                    .addFile(file, largeContent)
+                    .setAttach(new Clue(unknown))
+            );
+        }
+
+        @Override
+        public CheckResult check(String reply, Clue clue) {
+            reply = reply.strip();
+
+            if (reply.contains(doc) && reply.contains(pdf)) {
+                return CheckResult.wrong("There are both \"" + doc + "\" and \"" + pdf + "\"" +
+                    " in output, should be only one of them");
+            } else if (reply.contains(doc) && reply.contains(unknown)) {
+                return CheckResult.wrong("There are both \"" + doc + "\" and \"" + unknown + "\"" +
+                    " in output, should be only one of them");
+            } else if (reply.contains(pdf) && reply.contains(unknown)) {
+                return CheckResult.wrong("There are both \"" + pdf + "\" and \"" + unknown + "\"" +
+                    " in output, should be only one of them");
+            }
+
+            if (!reply.contains(clue.response)) {
+                return CheckResult.wrong("Your output does not contain \"" + clue.response + "\", but should." +
+                    "\n\nYour output:\n" + reply);
+            }
+
+            if (!reply.contains("seconds")) {
+                return CheckResult.wrong("Your output does not contain \"seconds\", but should." +
+                    "\n\nYour output:\n" + reply);
+            }
+
+            return CheckResult.correct();
+        }
+
+        @BeforeClass
+        public static void setLargeContent() {
+
+            StringBuilder content = new StringBuilder();
+
+            for (int i = 0; i< 6000; i++) {
+                content.append("%PDF");
+            }
+
+            content.append("%PDF-");
+            largeContent = content.toString();
+        }
+    }
+  learner_created: false
+- name: src/analyzer/CheckFile.java
+  visible: true
+  text: |
+    package analyzer;
+
+    import java.io.File;
+    import java.io.IOException;
+    import java.nio.charset.StandardCharsets;
+    import java.nio.file.Files;
+    import java.nio.file.Path;
+
+    public class CheckFile {
+
+        private final  String FileName;
+        private final  String TemlateOfFile;
+        private final  String TypeOfFile;
+
+        public CheckFile(String FileName, String TemlateOfFile, String TypeOfFile) {
+            this.FileName = FileName;
+            this.TemlateOfFile = TemlateOfFile;
+            this.TypeOfFile = TypeOfFile;
+        }
+
+        public  void Analyze(){
+
+            Path path =new File(FileName).toPath();
+
+            try {
+                byte[] data = Files.readAllBytes(path);
+
+                String Content = new String(data, StandardCharsets.UTF_8);
+
+                if(Content.contains(TemlateOfFile)){
+                    System.out.println(new Response().OutputRigthAnswer(TypeOfFile));
+                }
+                else{
+                    System.out.println(new Response().getError());
+                }
+
+            }catch (IOException e){
+                System.out.println("ERROR");
+            }
+        }
+
+    }
+  learner_created: true
+- name: src/analyzer/Response.java
+  visible: true
+  text: |
+    package analyzer;
+
+    public class Response {
+
+        private  String RigthAnswer;
+        private final String Error = "Unknown file type";
+
+        public String OutputRigthAnswer(String rigthAnswer) {
+            this.RigthAnswer = rigthAnswer;
+            return RigthAnswer;
+        }
+
+
+        public String getError() {
+            return Error;
+        }
+    }
+  learner_created: true
+- name: test/NaiveSearch.java
+  visible: false
+  text: |2
+
+
+    public class NaiveSearch {
+        public static long searchForPattern(String[] args) {
+            String pattern = args[1];
+            String fileContent = args[0];
+            long timeStart = System.nanoTime();
+            if (naiveSearch(fileContent, pattern)) {
+                return System.nanoTime() - timeStart;
+            }
+            return 0;
+        }
+
+
+        public static boolean naiveSearch (String text, String pattern) {
+            int textLength = text.length();
+            int patternLength = pattern.length();
+            for (int i = 0; i<textLength - patternLength + 1; i++) {
+                for (int j = 0; j< patternLength; j++) {
+                    if (!(text.charAt(i+j) == pattern.charAt(j))) {
+                        break;
+                    }
+                    else if (j == patternLength -1) return true;
+                }
+            }
+            return false;
+        }
+    }
+  learner_created: false
+- name: test/Clue.java
+  visible: false
+  text: |
+    public class Clue {
+        public String response;
+
+        public Clue(String response) {
+            this.response = response;
+        }
+    }
+  learner_created: false
+- name: test/ContainsSearch.java
+  visible: false
+  text: |
+    public class ContainsSearch {
+        public static long searchForPattern(String[] args) {
+            String pattern = args[1];
+            String patternName = args[2];
+            String fileContent = args[0];
+            String unknownFileType = "Unknown file type";
+            long timeStart = System.nanoTime();
+            if (fileContent.contains(pattern) /*!kmpSearch(fileContent.toString(), pattern).isEmpty()*/) {
+                return System.nanoTime() - timeStart;
+            }
+            return 0;
+        }
+    }
+  learner_created: false
+- name: src/analyzer/SimpleSerch.java
+  visible: true
+  learner_created: true
+- name: src/analyzer/KMPSearch.java
+  visible: true
+  learner_created: true
+feedback_link: https://hyperskill.org/learn/step/5486#comment
+status: Solved
+feedback:
+  message: Congratulations!
+  time: Wed, 06 Apr 2022 18:27:07 UTC
+record: 2

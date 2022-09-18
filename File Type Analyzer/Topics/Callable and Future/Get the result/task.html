@@ -1,0 +1,22 @@
+<h2>Get the result</h2>
+<html>
+ <head></head>
+ <body>
+  <p>Suppose that you want to count the number of occurrences of a word in a large file. Since the operation can take a very long time, you decide to do it asynchronously in order to prevent blocking the <code class="language-java">main</code> thread of the application.</p> 
+  <p>You have the following code:</p> 
+  <pre><code class="language-java">ExecutorService executor = Executors.newSingleThreadExecutor();
+Callable&lt;Integer&gt; countWordInFile = () -&gt; {
+    wordsCount = 0;
+    // accessing a file and calculating wordsCount
+    return wordsCount;
+};
+Future&lt;Integer&gt; task = executor.submit(countWordInFile);
+
+// some other statements here
+TimeUnit.SECONDS.sleep(15);
+
+int count = task.get();</code></pre> 
+  <p>What may happen when invoking <code class="language-java">get</code> method of <code class="language-java">task</code> (the last line)?</p> 
+  <p>Select all possible cases.</p>
+ </body>
+</html>

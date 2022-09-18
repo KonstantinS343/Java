@@ -1,0 +1,98 @@
+<h2>Callable and Future</h2>
+<html>
+ <head></head>
+ <body>
+  <h5 style="text-align: center;">The Callable interface</h5> 
+  <p>Sometimes you need not only to execute a task in an executor but also to return a result of this task to the calling code. It is possible but an inconvenient thing to do with <code class="language-java">Runnable</code>'s.</p> 
+  <p>In order to simplify it, an executor supports another class of tasks named <code class="language-java">Callable</code> that returns the result and may throw an exception. This interface belongs to the<code class="language-java">java.util.concurrent</code> package. Let's take a look at this.</p> 
+  <pre><code class="language-java">@FunctionalInterface
+public interface Callable&lt;V&gt; {
+    V call() throws Exception;
+}</code></pre> 
+  <p>As you can see, it is a generic interface where the type parameter <code class="language-java">V</code> determines the type of a result. Since it is a <strong>functional interface</strong>, we can use it together with lambda expressions and method references as well as implementing classes.</p> 
+  <p>Here is a <code class="language-java">Callable</code> that emulates a long-running task and returns a number that was "calculated".</p> 
+  <pre><code class="language-java">Callable&lt;Integer&gt; generator = () -&gt; {
+    TimeUnit.SECONDS.sleep(5);
+    return 700000;
+};</code></pre> 
+  <p>The same code can be rewritten using inheritance that is more boilerplate than the lambda.</p> 
+  <h5 style="text-align: center;">Submitting a Callable and obtaining a Future</h5> 
+  <p>When we submit a <code class="language-java">Callable</code> to executor service, it cannot return a result directly since the <code class="language-java">submit</code> method does not wait until the task completes. Instead, an executor returns a special object called <code class="language-java">Future</code> that wraps the actual result that may not even exist yet. This object represents the result of an asynchronous computation (task).</p> 
+  <pre><code class="language-java">ExecutorService executor = Executors.newSingleThreadExecutor();
+
+Future&lt;Integer&gt; future = executor.submit(() -&gt; {
+    TimeUnit.SECONDS.sleep(5);
+    return 700000;
+});</code></pre> 
+  <p>Until the task completes, the actual result is not present in the <code class="language-java">future</code>. To check it, there is a method <code class="language-java">isDone()</code>. Most likely, it will return <code class="language-java">false</code> if you will call it immediately after obtaining a new <code class="language-java">future</code>.</p> 
+  <pre><code class="language-java">System.out.println(future.isDone()); // most likely it is false</code></pre> 
+  <h5 style="text-align: center;">Getting the actual result of a task</h5> 
+  <p>The result can only be retrieved from a <em>future</em> by using the <code class="language-java">get</code> method.</p> 
+  <pre><code class="language-java">int result = future.get();</code></pre> 
+  <p>It returns the result when the computation has completed, or blocks the current thread and waits for the result. This method may throw two checked exceptions: <code class="language-java">ExecutionException</code> and <code class="language-java">InterruptedException</code> which we omit here for brevity.</p> 
+  <p>If a submitted task executes an infinite loop or waits for an external resource for too long, a thread that invokes <code class="language-java">get</code> will be blocked all this time. To prevent this, there is also an overloaded version of <code class="language-java">get</code> with a waiting timeout.</p> 
+  <pre><code class="language-java">int result = future.get(10, TimeUnit.SECONDS); // it blocks the current thread</code></pre> 
+  <p><br> In this case, the calling thread waits for 10 seconds most for the computation to complete. If the timeout ends, the method throws <code class="language-java">TimeoutException</code>.</p> 
+  <h5 style="text-align: center;">Cancelling a task</h5> 
+  <p>The <code class="language-java">Future</code> class provides an instance method named <code class="language-java">cancel</code> that attempts to cancel the execution of a task. This method is more complicated than it might seem at the first look.</p> 
+  <p>An attempt will fail if the task has already completed, has already been canceled or could not be canceled for some other reason. If successful, and if this task has not already started when the method is invoked, it will never run.</p> 
+  <p>The method takes a <code class="language-java">boolean</code> parameter that determines whether the thread executing this task should be interrupted in an attempt to stop the task (in other words, whether to stop already running task or not).</p> 
+  <pre><code class="language-java">future1.cancel(true);  // try to cancel even if the task is executing now
+future2.cancel(false); // try to cancel only if the task is not executing</code></pre> 
+  <p>Since passing <code class="language-java">true</code> involves interruptions, the cancelation of an executing task is guaranteed only if it handles <code class="language-java">InterruptedException</code> correctly and checks the flag <code class="language-java">Thread.currentThread().isInterrupted()</code>.</p> 
+  <p>If someone invokes <code class="language-java">future.get()</code> at a successfully canceled task, the method throws an unchecked <code class="language-java">CancellationException</code>. If you do not want to deal with it, you may check whether a task was canceled by invoking <code class="language-java">isCancelled()</code>.</p> 
+  <h5 style="text-align: center;">The advantage of using Callable and Future</h5> 
+  <p>The approach we are learning here allows us to do something useful between obtaining a <code class="language-java">Future</code> and getting the actual result. In this time interval, we can submit several tasks to an executor, and only after that wait for all results to be aggregated.</p> 
+  <pre><code class="language-java">ExecutorService executor = Executors.newFixedThreadPool(4);
+
+Future&lt;Integer&gt; future1 = executor.submit(() -&gt; {
+    TimeUnit.SECONDS.sleep(5);
+    return 700000;
+});
+
+Future&lt;Integer&gt; future2 = executor.submit(() -&gt; {
+    TimeUnit.SECONDS.sleep(5);
+    return 900000;
+});
+
+int result = future1.get() + future2.get(); // waiting for both results
+
+System.out.println(result); // 1600000</code></pre> 
+  <p>If you have a modern computer, these tasks may be executed in parallel.</p> 
+  <h5 style="text-align: center;">Methods invokeAll and invokeAny</h5> 
+  <p>In addition to all features described above, there are two useful methods for submitting batches of <code class="language-java">Callable</code> to an executor.</p> 
+  <ul> 
+   <li><code class="language-java">invokeAll</code> accepts a prepared collection of callables and returns a collection of <em>futures</em>;</li> 
+   <li><code class="language-java">invokeAny</code> also accepts a collection of callables and returns the result (not a <em>future</em>!) of one that has completed successfully.</li> 
+  </ul> 
+  <p>Both methods also have overloaded versions that accept a timeout of execution that is often needed in real life.</p> 
+  <p>Suppose that we need to calculate several numbers in separated tasks and then sum up the numbers in the <code class="language-java">main</code> thread. It is easy to do by using <code class="language-java">invokeAll</code> method. </p> 
+  <pre><code class="language-java">ExecutorService executor = Executors.newFixedThreadPool(4);
+List&lt;Callable&lt;Integer&gt;&gt; callables =
+        List.of(() -&gt; 1000, () -&gt; 2000, () -&gt; 1500); // three "difficult" tasks
+
+List&lt;Future&lt;Integer&gt;&gt; futures = executor.invokeAll(callables);
+int sum = 0;
+for (Future&lt;Integer&gt; future : futures) {
+   sum += future.get(); // blocks on each future to get a result
+}
+System.out.println(sum);</code></pre> 
+  <p></p>
+  <div class="alert alert-primary">
+    If your version of Java is 8 rather than 9+ replace 
+   <code class="language-java">List.of(...)</code> with 
+   <code class="language-java">Arrays.asList(...)</code>. If you know Stream API (Java 8) and would like to practice it, you may rewrite this code using it.
+  </div>
+  <p></p> 
+  <h5 style="text-align: center;">Summary</h5> 
+  <p>Let's summarize the information about <code class="language-java">Callable</code> and <code class="language-java">Future</code>.</p> 
+  <p>To get a result of an asynchronous task executed in <code class="language-java">ExecutorService</code> you have to execute three steps:</p> 
+  <ol> 
+   <li>create an object representing a <code class="language-java">Callable</code> task;</li> 
+   <li>submit the task in <code class="language-java">ExecutorService</code> and obtain a <code class="language-java">Future</code>;</li> 
+   <li>invoke <code class="language-java">get</code> to receive the actual result when you need it.</li> 
+  </ol> 
+  <p>Using <code class="language-java">Future</code> allows us not to block the current thread until we do want to receive a result of a task. It is also possible to start multiple tasks and then get all results to aggregate them in the current thread. In addition to making your program more responsive, it will speed up your calculations if your computer supports parallel execution of threads.</p> 
+  <p>You may also use methods <code class="language-java">isDone</code>, <code class="language-java">cancel</code> and <code class="language-java">isCancelled</code> of a <code class="language-java">future</code>. But be careful with exception handling when using them. Unfortunately, we cannot give all possible recipes and best practices within the lesson, but they will come with more experience. The main thing, especially in multi-threaded programming, is to read the documentation.</p>
+ </body>
+</html>

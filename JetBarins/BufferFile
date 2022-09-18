@@ -1,0 +1,10 @@
+class InforamtionAboutServer implements Serializable{
+    private static final long serialVersionUID = 1L;
+    private Map<Integer,String> MyLoadFiles = new HashMap<>();
+   public void SetInforamtionAboutServer(int ID, String name) {
+        this.MyLoadFiles.put(ID,name);
+   }
+    public Map<Integer,String> GetInforamtionAboutServer(){
+        return MyLoadFiles;
+    }
+}

@@ -3,7 +3,7 @@ hyperskill_project:
   ide_files: https://stepik.org/media/attachments/lesson/210138/additional_files.json
   is_template_based: false
   use_ide: true
-update_date: Mon, 04 Apr 2022 12:26:14 UTC
+update_date: Tue, 05 Apr 2022 14:52:49 UTC
 stages:
 - id: 348
   step: 5490
@@ -133,6 +133,8 @@ topics:
     theory_id: 8977
   - title: Parameters and options
     theory_id: 9746
+  - title: Running programs on your computer
+    theory_id: 3746
   - title: Files
     theory_id: 3635
   - title: Pseudocode
@@ -163,8 +165,6 @@ topics:
     theory_id: 3492
   - title: Generics and Object
     theory_id: 3493
-  - title: Running programs on your computer
-    theory_id: 3746
   - title: What are collections
     theory_id: 3770
   - title: The Collections Framework overview

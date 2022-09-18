@@ -1,0 +1,23 @@
+type: code
+files:
+- name: src/Main.java
+  visible: true
+  text: |-
+    class CounterThread extends Thread {
+
+        @Override
+        public void run() {
+            long counter = 0;
+
+            while (true) {
+                counter++;
+            }
+        }
+    }
+  learner_created: false
+feedback_link: https://hyperskill.org/learn/step/2545#comment
+status: Solved
+feedback:
+  message: <html>Correct solution</html>
+  time: Thu, 07 Apr 2022 16:28:19 UTC
+record: -1

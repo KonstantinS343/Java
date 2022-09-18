@@ -1,0 +1,21 @@
+<h2>How many Callable objects are there?</h2>
+<html>
+ <head></head>
+ <body>
+  <p></p>
+  <div class="alert alert-primary">
+   Wow! This problem is kind of tricky. If you're ready to put your thinking cap on, brace yourself and good luck! Otherwise, you can skip it for now and return any time later
+  </div>
+  <p></p> 
+  <p>You are given a <code class="java">Callable</code> object. Some say that it returns another <code class="java">Callable</code> object. And that <code class="java">Callable</code> returns another <code class="java">Callable</code> object! And so on. You should find out how many <code class="java">Callable</code> objects there are.</p> 
+  <p>If the first iteration of <code class="java">call()</code> method returns <strong>non-</strong><code class="java">Callable</code> object, your method should return 1.</p> 
+  <p>Write a method that solves this problem.</p> 
+  <p><button class="btn-sm btn-outline-secondary" onclick="getElementById('hint-696').style.display='inline'"> Hint </button> </p>
+  <div id="hint-696" style="display:none;">
+   <p></p> 
+   <p>Remember that if you cast a non-<code class="java">Callable</code> object to a <code class="java">Callable</code>, you will get an error doing that.<br> You may use <code class="java">instanceof</code> operator to check whether the object is <code class="java">Callable</code> or not.</p> 
+   <p></p>
+  </div>
+  <p></p>
+ </body>
+</html><br><br><font color="gray">Memory limit: 256 MB</font><br><font color="gray">Time limit: 5 seconds</font><br><br>

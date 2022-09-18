@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <bytecodeTargetLevel target="17">
+      <module name="File_Type_Analyzer.File_Type_Analyzer-task-build-classes-java.main" target="11" />
+      <module name="File_Type_Analyzer.File_Type_Analyzer-task-build-generated-sources-annotationProcessor-java.main" target="11" />
+      <module name="File_Type_Analyzer.File_Type_Analyzer-task-build-generated-sources-headers-java.main" target="11" />
+      <module name="File_Type_Analyzer.File_Type_Analyzer-task-build-reports-tests.main" target="11" />
+      <module name="File_Type_Analyzer.File_Type_Analyzer-task-build-test-results.main" target="11" />
+      <module name="File_Type_Analyzer.File_Type_Analyzer-task-build-tmp.main" target="11" />
+      <module name="File_Type_Analyzer.File_Type_Analyzer-task-out.main" target="11" />
+      <module name="File_Type_Analyzer.File_Type_Analyzer-task.main" target="11" />
+      <module name="File_Type_Analyzer.Topics-Callable_and_Future-Create_a_callable.main" target="11" />
+      <module name="File_Type_Analyzer.Topics-Callable_and_Future-Execute_Callable_objects.main" target="11" />
+      <module name="File_Type_Analyzer.Topics-Callable_and_Future-Get_the_result.main" target="11" />
+      <module name="File_Type_Analyzer.Topics-Callable_and_Future-How_many_Callable_objects_are_there.main" target="11" />
+      <module name="File_Type_Analyzer.Topics-Callable_and_Future-How_many_tasks_are_finished.main" target="11" />
+      <module name="File_Type_Analyzer.Topics-Callable_and_Future-Theory.main" target="11" />
+      <module name="File_Type_Analyzer.Topics-Callable_and_Future-What_is_Future.main" target="11" />
+      <module name="File_Type_Analyzer.Topics-Interruptions-Handling_interruptions.main" target="11" />
+      <module name="File_Type_Analyzer.Topics-Interruptions-Interrupt_method.main" target="11" />
+      <module name="File_Type_Analyzer.Topics-Interruptions-Interrupting_a_thread.main" target="11" />
+      <module name="File_Type_Analyzer.Topics-Interruptions-Theory.main" target="11" />
+      <module name="File_Type_Analyzer.Topics-Polymorphism-Find_mistake.main" target="11" />
+      <module name="File_Type_Analyzer.Topics-Polymorphism-Theory.main" target="11" />
+      <module name="File_Type_Analyzer.util.main" target="11" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
